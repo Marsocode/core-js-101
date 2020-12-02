@@ -256,8 +256,9 @@ function getMovingSum(arr) {
  * [ 'a', 'b', 'c' , null ]  => [ "b", null ]
  * [ "a" ] => []
  */
-function getSecondItems(/* arr */) {
-  throw new Error('Not implemented');
+function getSecondItems(arr) {
+  // eslint-disable-next-line no-unused-vars
+  return arr.filter((item, index) => index % 2 !== 0);
 }
 
 
@@ -275,8 +276,9 @@ function getSecondItems(/* arr */) {
  *  [ 'a', 'b', 'c', null ] => [ 'a', 'b','b', 'c','c','c',  null,null,null,null ]
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  // eslint-disable-next-line max-len
+  return arr.reduce((acc, item, index) => acc.concat(Array.from({ length: index + 1 }).map(() => item)), []);
 }
 
 
