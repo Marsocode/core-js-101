@@ -209,8 +209,11 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  const first = `┌${'─'.repeat(width - 2)}┐\n`;
+  const second = `│${' '.repeat(width - 2)}│\n`.repeat(height - 2);
+  const third = `└${'─'.repeat(width - 2)}┘\n`;
+  return first + second + third;
 }
 
 
@@ -240,7 +243,6 @@ function encodeToRot13(str) {
     } else {
       newStr += str[i];
     }
-  // throw new Error('Not implemented');
   }
   return newStr;
 }
