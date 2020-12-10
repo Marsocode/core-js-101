@@ -34,8 +34,9 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T16:07:37+00:00'    => Date()
  *    '2016-01-19T08:07:37Z' => Date()
  */
-function parseDataFromIso8601(/* value */) {
-  throw new Error('Not implemented');
+function parseDataFromIso8601(value) {
+  const newDate = new Date(value);
+  return newDate.getTime();
 }
 
 
@@ -53,8 +54,13 @@ function parseDataFromIso8601(/* value */) {
  *    Date(2012,1,1)    => true
  *    Date(2015,1,1)    => false
  */
-function isLeapYear(/* date */) {
-  throw new Error('Not implemented');
+function isLeapYear(date) {
+  const year = date.getFullYear();
+  // eslint-disable-next-line no-mixed-operators
+  if ((year % 4 === 0) && (year % 100 !== 0) || year % 400 === 0) {
+    return true;
+  }
+  return false;
 }
 
 
@@ -67,14 +73,26 @@ function isLeapYear(/* date */) {
  * @return {string}
  *
  * @example:
- *    Date(2000,1,1,10,0,0),  Date(2000,1,1,11,0,0)   => "01:00:00.000"
+ *    Date(2000,1,1,10,0,0),  Date(2000,1,1,11,0,0)   => ":0100:00.000"
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,30,0)       => "00:30:00.000"
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,20)        => "00:00:20.000"
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,0,250)     => "00:00:00.250"
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
-function timeSpanToString(/* startDate, endDate */) {
-  throw new Error('Not implemented');
+function timeSpanToString(startDate, endDate) {
+  let timeDiff = Math.abs(startDate - endDate);
+
+  function addZero(n, z) {
+    return (`00${n}`).slice(-z);
+  }
+  const msDiff = timeDiff % 1000;
+  timeDiff = (timeDiff - msDiff) / 1000;
+  const secondsDiff = timeDiff % 60;
+  timeDiff = (timeDiff - secondsDiff) / 60;
+  const minDiff = timeDiff % 60;
+  const hourDiff = (timeDiff - minDiff) / 60;
+
+  return `${addZero(hourDiff, 2)}:${addZero(minDiff, 2)}:${addZero(secondsDiff, 2)}.${addZero(msDiff, 3)}`;
 }
 
 
